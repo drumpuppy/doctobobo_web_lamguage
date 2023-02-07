@@ -1,0 +1,64 @@
+<!DOCTYPE html>  
+<html>  
+    <link rel="stylesheet" href="inscription.css">
+ <head>  
+    <title>Inscription</title>  
+ </head>  
+ <body>  
+
+<div class="creation_compte">
+<h1 style="color: rgb(20, 125, 200)">Je cree mon compte Doctobobo</h1>
+
+<form action="/page-inscription" method="post">
+
+    <br />
+    <input type="radio" name="titre" value="docteur"> Docteur 
+    <input type="radio" name="titre" value="patient"> Patient 
+    <br />
+
+    <div>
+    <label for="username">Votre prenom :</label>
+    <input type="text" id="username" name="username" placeholder="Marie" required>
+    </div>
+
+    <div>
+    <label for="name">Votre nom :</label>
+    <input type="text" id="username" name="username" placeholder="Martin" required>
+    </div>
+
+    <div>
+    <label for="age"> Votre date de naissance :</label>
+    <input type="text" id="age" name="age" placeholder="20/12/2000" required>
+    </div>
+
+    <div>
+    <label for="email"> Votre adresse email :</label>
+    <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
+    </div>
+
+    <div>
+    <label for="pssword"> Votre mot de passe :</label>
+    <input type="pssword" id="pwd" name="pwd" placeholder="Mot de passe" required>
+    </div>
+
+    <div>
+    <button type="submit">Creation du compte</button>
+    </div>
+
+</form>
+</div>
+
+<div class="retour_connexion">
+    <h1 style="color: rgb(20, 125, 200)">J'ai deja un compte Doctobobo</h1>
+    
+    <form action="/page-connexion" method="post">
+    
+        <div>
+        <button type="submit">Se connecter</button>
+        </div>
+    
+    </form>
+</div>
+
+ </body>  
+</html>
