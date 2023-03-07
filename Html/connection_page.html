@@ -8,7 +8,25 @@
     <title>Connection</title>  
  </head>  
  <body>  
- 
+
+    <ul class="menu">
+        <li>
+          <a href="landing_page.html" class="actif">Doctobobo</a>
+        </li>
+        <li>
+            <a href="connection_page.html" class="actif">Se connecter</a>
+        </li>
+        <li>
+            <a href="meeting.html" class="actif">Mes rendez-vous</a>
+        </li>
+        <li>
+            <a href="my_space.html" class="actif">Mon espace</a>
+        </li>
+  </ul>
+
+  <br />
+  
+    <!-- 
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="landing_page.html">Doctobobo</a>
@@ -27,44 +45,48 @@
     <div class="row">
         <div class="row"></div>
     </div>
+    -->
 
+    <div class="connection_compte">
+        <h1 style="color: rgb(20, 125, 200)">J'ai un compte Doctobobo</h1>
+        
+        <form action="/page-connection" method="post">
 
-    
-
-    <table class="tab1">
-        <tr class="tableau1">
-          <th style="color: blue"> J'ai un compte Doctobobo </th>
-          <br />
-        </tr>
-
-        <td>
             <br />
             <input type="radio" name="titre" value="docteur"> Docteur 
             <input type="radio" name="titre" value="patient"> Patient 
             <br />
-            <br />
     
-            <input type="text" id="email" name="email" placeholder="Adresse mail"/><br />
-            <br />
-            <input type="pssword" id="pwd" name="pwd" placeholder="Mot de passe"/><br />
-    
-            <p><input type = "submit" value="Se connecter"></p>
-        </td>
-    </tables>
+            <div>
+                <label for="email"> Votre adresse email :</label>
+                <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
+            </div>
+            
+            <div>
+                <label for="pssword"> Votre mot de passe :</label>
+                <input type="pssword" id="pwd" name="pwd" placeholder="Mot de passe" required>
+            </div>
 
+            <div>
+                <button type="submit">Se connecter</button>
+            </div>
 
-    <table class="tab2">
-        <tr class="tableau2">
-          <th style="color: blue"> Nouveau sur Doctobobo ? </th>
-          <br />
-        </tr>
+        </form>
+    </div>
 
-        <td>
-            <br />
-            <p><input type = "submit" value="S'inscrire"></p>
-        </td>
-    </table>
+    <br />
 
+    <div class="retour_inscription">
+        <h1 style="color: rgb(20, 125, 200)">Nouveau sur Doctobobo ?</h1>
+        
+        <form action="/page-inscription" method="post">
+        
+            <div>
+                <button type="submit">S'inscrire</button>
+            </div>
+        
+        </form>
+    </div>
 
-   </body>  
+</body>  
 </html>
