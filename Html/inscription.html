@@ -6,52 +6,71 @@
  </head>  
  <body>  
 
+    <ul class="menu">
+        <li>
+          <a href="landing_page.html" class="actif">Doctobobo</a>
+        </li>
+        <li>
+            <a href="connection_page.html" class="actif">Se connecter</a>
+        </li>
+        <li>
+            <a href="meeting.html" class="actif">Mes rendez-vous</a>
+        </li>
+        <li>
+            <a href="my_space.html" class="actif">Mon espace</a>
+        </li>
+  </ul>
+
+  <br />
+
 <div class="creation_compte">
-<h1 style="color: rgb(20, 125, 200)">Je cree mon compte Doctobobo</h1>
+    <h1 style="color: rgb(20, 125, 200)">Je cree mon compte Doctobobo</h1>
 
-<form action="/page-inscription" method="post">
+    <form action="/page-inscription" method="post">
 
-    <br />
-    <input type="radio" name="titre" value="docteur"> Docteur 
-    <input type="radio" name="titre" value="patient"> Patient 
-    <br />
+        <br />
+        <input type="radio" name="titre" value="docteur"> Docteur 
+        <input type="radio" name="titre" value="patient"> Patient 
+        <br />
 
-    <div>
-    <label for="username">Votre prenom :</label>
-    <input type="text" id="username" name="username" placeholder="Marie" required>
-    </div>
+        <div>
+        <label for="username">Votre prenom :</label>
+        <input type="text" id="username" name="username" placeholder="Marie" required>
+        </div>
 
-    <div>
-    <label for="name">Votre nom :</label>
-    <input type="text" id="username" name="username" placeholder="Martin" required>
-    </div>
+        <div>
+        <label for="name">Votre nom :</label>
+        <input type="text" id="username" name="username" placeholder="Martin" required>
+        </div>
 
-    <div>
-    <label for="age"> Votre date de naissance :</label>
-    <input type="text" id="age" name="age" placeholder="20/12/2000" required>
-    </div>
+        <div>
+        <label for="age"> Votre date de naissance :</label>
+        <input type="text" id="age" name="age" placeholder="20/12/2000" required>
+        </div>
 
-    <div>
-    <label for="email"> Votre adresse email :</label>
-    <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
-    </div>
+        <div>
+        <label for="email"> Votre adresse email :</label>
+        <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
+        </div>
 
-    <div>
-    <label for="pssword"> Votre mot de passe :</label>
-    <input type="pssword" id="pwd" name="pwd" placeholder="Mot de passe" required>
-    </div>
+        <div>
+        <label for="pssword"> Votre mot de passe :</label>
+        <input type="pssword" id="pwd" name="pwd" placeholder="Mot de passe" required>
+        </div>
 
-    <div>
-    <button type="submit">Creation du compte</button>
-    </div>
+        <div>
+        <button type="submit">Creation du compte</button>
+        </div>
 
-</form>
+    </form>
 </div>
 
-<div class="retour_connexion">
+<br />
+
+<div class="retour_connection">
     <h1 style="color: rgb(20, 125, 200)">J'ai deja un compte Doctobobo</h1>
     
-    <form action="/page-connexion" method="post">
+    <form action="/page-connection" method="post">
     
         <div>
         <button type="submit">Se connecter</button>
