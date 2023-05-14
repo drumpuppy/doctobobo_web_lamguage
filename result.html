@@ -13,7 +13,6 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        // Parse the search results and display them
                         const doctors = JSON.parse(xhr.responseText);
                         displaySearchResults(doctors);
                     }
@@ -23,8 +22,6 @@
         };
 
         function displaySearchResults(doctors) {
-            // Display the search results in the result.html page
-            // You can customize this function to display the results as you like
             const resultsContainer = document.getElementById("search-results");
 
             if (doctors.length === 0) {
@@ -68,14 +65,10 @@
         
         <form action="/search-result" method="post">
 
+            <div id="search-results"></div>
+
         </form>
     </div>
-
-
-    <!--  
-    <h1>Search Results</h1>
-    <div id="search-results"></div>
-    -->  
 
 </body>
 </html>
