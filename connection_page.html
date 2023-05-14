@@ -84,7 +84,7 @@
                         console.log('Response:', xhr.responseText);
                         const response = JSON.parse(xhr.responseText);
                         if (response.success) {
-                            window.location.href = 'landing_page.html';
+                            window.location.href = 'my_space.html';
                         } else {
                             document.getElementById('error-message').style.display = 'block';
                         }
@@ -97,5 +97,21 @@
             xhr.send(data);
         });
     </script>
+
+    <script>
+        document.getElementById('logout-btn').addEventListener('click', function() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', './phpDatabase/logout.php', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                window.location.href = '../connection_page.html';
+            }
+            }
+        };
+        xhr.send();
+        });
+    </script>
+
 </body>
 </html>

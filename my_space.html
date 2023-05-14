@@ -8,8 +8,8 @@
     <title>Mon espace</title>  
  </head>  
 
- <body>  
-
+ <body>
+    
     <ul class="menu">
         <li>
           <a href="landing_page.html" class="actif">Doctobobo</a>
@@ -27,12 +27,17 @@
 
     <br />
 
+    <li>
+        <button id="logout-btn">Se déconnecter</button>
+    </li>
+
     <div class="données_perso">
         <h1 style="color: rgb(20, 125, 200)">Mes données personnelles :</h1>
         
-        <form action="/données_perso" method="post">
-
-        </form>
+        <p>Nom: <span id="user-last-name"></span></p>
+        <p>Prénom: <span id="user-first-name"></span></p>
+        <p>Date de naissance: <span id="user-birthdate"></span></p>
+        <p>Email: <span id="user-email"></span></p>
     </div>
 
     <br />
@@ -41,10 +46,51 @@
     <div class="rdv_passé">
         <h1 style="color: rgb(20, 125, 200)">Mes rendez-vous passés :</h1>
         
-        <form action="/rdv_passé" method="post">
-
+        <form>
         </form>
     </div>
 
+    <script>
+        function fetchData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', './phpDatabase/get_user_data.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            document.getElementById('user-last-name').innerText = response.data.Nom_Medecin || response.data.Nom_Patient;
+                            document.getElementById('user-first-name').innerText = response.data.Prenom_Medecin || response.data.Prenom_Patient;
+                            document.getElementById('user-birthdate').innerText = response.data.DateNaissance;
+                            document.getElementById('user-email').innerText = response.data.email;
+                        } else {
+                            // Redirect to the login page if the session is not set or expired
+                            window.location.href = 'connection_page.html';
+                        }
+                    }
+                }
+            };
+            xhr.send();
+        }
+        
+        // Fetch user data when the page is loaded
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+
+    <script>
+        document.getElementById('logout-btn').addEventListener('click', function() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', './phpDatabase/logout.php', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    window.location.href = 'connection_page.html';
+                }
+            }
+        };
+        xhr.send();
+        });
+    </script>
+
   </body>
-  </html>
+</html>

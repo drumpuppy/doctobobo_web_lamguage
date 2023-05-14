@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 function checkCredentials($email, $password, $userType) {
 
     $servername = "localhost";
@@ -27,7 +29,6 @@ function checkCredentials($email, $password, $userType) {
         $sql = "SELECT idMedecin FROM Medecin WHERE email = ? AND password = ?";
     } elseif ($userType === "patient") {
         $sql = "SELECT idPatient FROM Patient WHERE email = ? AND password = ?";
-        error_log("Invalid user type: " . $sql);
     } else {
         error_log("Invalid user type: " . $userType);
         return false;
@@ -71,6 +72,8 @@ $userId = checkCredentials($email, $password, $userType);
 header('Content-Type: application/json');
 
 if ($userId) {
+    $_SESSION['user_id'] = $userId[$userType === 'docteur' ? 'idMedecin' : 'idPatient'];
+    $_SESSION['user_type'] = $userType;
     echo json_encode(['success' => true]);
 } else {
     echo json_encode(['success' => false]);
