@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="result.css">
+    <script>
+        window.onload = function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "./phpDatabase/get_search_result.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Parse the search results and display them
+                        const doctors = JSON.parse(xhr.responseText);
+                        displaySearchResults(doctors);
+                    }
+                }
+            };
+            xhr.send();
+        };
+
+        function displaySearchResults(doctors) {
+            // Display the search results in the result.html page
+            // You can customize this function to display the results as you like
+            const resultsContainer = document.getElementById("search-results");
+
+            if (doctors.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            } else {
+                doctors.forEach(function(doctor) {
+                    const doctorDiv = document.createElement("div");
+                    doctorDiv.innerHTML = `
+                        <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
+                        <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
+                        <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>
+                        <hr>`;
+                    resultsContainer.appendChild(doctorDiv);
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Search Results</h1>
+    <div id="search-results"></div>
+</body>
+</html>
