@@ -6,16 +6,11 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "doctobobo";
-
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -23,7 +18,6 @@ if ($conn->connect_error) {
 $user_id = $_SESSION['user_id'];
 $user_type = $_SESSION['user_type'];
 
-// Fetch user data based on the user type
 if ($user_type === 'docteur') {
     $sql = "SELECT * FROM Medecin WHERE idMedecin = ?";
 } else {
@@ -40,5 +34,5 @@ $user_data = $result->fetch_assoc();
 $stmt->close();
 $conn->close();
 
-echo json_encode(['success' => true, 'data' => $user_data]);
+echo json_encode(['success' => true, 'data' => $user_data, 'user_type' => $user_type]);
 ?>

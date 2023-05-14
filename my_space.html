@@ -38,6 +38,37 @@
         <p>Prénom: <span id="user-first-name"></span></p>
         <p>Date de naissance: <span id="user-birthdate"></span></p>
         <p>Email: <span id="user-email"></span></p>
+        <p>Adresse: <span id="user-address"></span></p>
+        <p>Code postal: <span id="user-postal-code"></span></p>
+        <p id="specialty-container">Spécialité: <span id="user-specialty"></span></p>
+
+        <button id="edit-info-btn">Modifier mes informations</button>
+    </div>
+
+    <div id="edit-info-form" style="display: none;">
+        <h1 style="color: rgb(20, 125, 200)">Modifier mes informations :</h1>
+        
+        <form>
+            <label for="edit-last-name">Nom :</label>
+            <input type="text" id="edit-last-name" name="last-name">
+            <br>
+                <label for="edit-first-name">Prénom :</label>
+                <input type="text" id="edit-first-name" name="first-name">
+            <br>
+                <label for="edit-birthdate">Date de naissance :</label>
+                <input type="date" id="edit-birthdate" name="birthdate">
+            <br>
+                <label for="edit-address">Adresse :</label>
+                <input type="text" id="edit-address" name="address">
+            <br>
+                <label for="edit-postal-code">Code postal :</label>
+                <input type="text" id="edit-postal-code" name="postal-code">
+            <br>
+                <label id="specialty-label" for="edit-specialty">Spécialité :</label>
+                <input type="text" id="edit-specialty" name="specialty">
+            <br>
+            <button type="submit">Enregistrer</button>
+        </form>
     </div>
 
     <br />
@@ -51,6 +82,9 @@
     </div>
 
     <script>
+        let userType = '';
+
+
         function fetchData() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', './phpDatabase/get_user_data.php', true);
@@ -63,8 +97,15 @@
                             document.getElementById('user-first-name').innerText = response.data.Prenom_Medecin || response.data.Prenom_Patient;
                             document.getElementById('user-birthdate').innerText = response.data.DateNaissance;
                             document.getElementById('user-email').innerText = response.data.email;
+                            document.getElementById('user-address').innerText = response.data.adresse;
+                            document.getElementById('user-postal-code').innerText = response.data.code_postal;
+                            if (response.user_type === 'docteur') {
+                                document.getElementById('user-specialty').innerText = response.data.Specialite;
+                            } else {
+                                document.getElementById('specialty-container').style.display = 'none';
+                            }
+                            userType = response.user_type;
                         } else {
-                            // Redirect to the login page if the session is not set or expired
                             window.location.href = 'connection_page.html';
                         }
                     }
@@ -72,8 +113,6 @@
             };
             xhr.send();
         }
-        
-        // Fetch user data when the page is loaded
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
 
@@ -89,6 +128,58 @@
             }
         };
         xhr.send();
+        });
+    </script>
+
+    <script>
+        document.getElementById('edit-info-btn').addEventListener('click', function() {
+
+        document.getElementById('edit-last-name').value = document.getElementById('user-last-name').innerText;
+        document.getElementById('edit-first-name').value = document.getElementById('user-first-name').innerText;
+        document.getElementById('edit-birthdate').value = document.getElementById('user-birthdate').innerText;
+        document.getElementById('edit-address').value = document.getElementById('user-address').innerText;
+        document.getElementById('edit-postal-code').value = document.getElementById('user-postal-code').innerText;
+
+        if (userType === 'docteur') {
+            document.getElementById('edit-specialty').value = document.getElementById('user-specialty').innerText;
+        } else {
+            document.getElementById('specialty-label').style.display = 'none';
+            document.getElementById('edit-specialty').style.display = 'none';
+        }
+
+        document.getElementById('edit-info-form').style.display = 'block';
+        });
+
+        document.getElementById('edit-info-form').querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const lastName = document.getElementById('edit-last-name').value;
+        const firstName = document.getElementById('edit-first-name').value;
+        const birthdate = document.getElementById('edit-birthdate').value;
+        const address = document.getElementById('edit-address').value;
+        const postalCode = document.getElementById('edit-postal-code').value;
+        const specialty = document.getElementById('edit-specialty').value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', './phpDatabase/update_user_info.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                    fetchData();
+                    document.getElementById('edit-info-form').style.display = 'none';
+                    } else {
+                    alert('An error occurred while updating your information. Please try again.');
+                    }
+                }
+            }
+        };
+
+        const data = 'last_name=' + encodeURIComponent(lastName) + '&first_name=' + encodeURIComponent(firstName) + '&birthdate=' + encodeURIComponent(birthdate) + '&address=' + encodeURIComponent(address) + '&postal_code=' + encodeURIComponent(postalCode) + '&specialty=' + encodeURIComponent(specialty);
+        xhr.send(data);
         });
     </script>
 
