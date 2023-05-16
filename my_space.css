@@ -52,6 +52,17 @@ body {
     font-weight: bold;
 }
 
+/*Style du bouton*/
+.données_perso > button {
+    background-color: rgb(20, 125, 200);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .rdv_passé {
     width: 700px;
     border: 1px solid;
@@ -64,4 +75,53 @@ body {
     font-weight: 500;
     text-align : center;
     font-weight: bold;
+}
+
+/*Ajout du bloc blanc*/
+#edit-info-form {
+    display: none;
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
+/*Mise en forme diu titre*/
+#edit-info-form h1 {
+    color: rgb(20, 125, 200);
+    font-weight: bold;
+    text-align : center;
+}
+
+#edit-info-form form > input {               /*Donne la couleur des barres des recherche et leurs styles*/
+    background: #efeeee;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Montserrat, "sans-serif";
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+#edit-info-form form > input {              /*Définit la taille des barres de recherche*/
+    height: 40px;
+    padding-left: 10px;
+    width: 70%;
+}
+
+/*Donne la couleur aux mots exemple*/
+#edit-info-form form > input::placeholder, form div > textarea::placeholder {
+    color: rgb(156, 155, 155);
+}
+
+/*Style du bouton*/
+#edit-info-form button[type="submit"] {
+    background-color: rgb(20, 125, 200);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
 }
