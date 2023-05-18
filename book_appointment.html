@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prise de rendez-vous</title>
+        <link rel="stylesheet" href="book_appointment.css">
+    </head>
+
+    <body>
+        <ul class="menu">
+            <li>
+            <a href="landing_page.html" class="actif">Doctobobo</a>
+            </li>
+            <li>
+                <a href="connection_page.html" class="actif">Se connecter</a>
+            </li>
+            <li>
+                <a href="meeting.html" class="actif">Mes rendez-vous</a>
+            </li>
+            <li>
+                <a href="my_space.html" class="actif">Mon espace</a>
+            </li>
+        </ul>
+
+        <br />
+
+        <div>        
+            <h1>Prendre rendez-vous</h1>
+        <div>
+            <label for="appointmentDate">Date:</label>
+            <input type="date" id="appointmentDate" name="appointmentDate">
+        </div>
+
+        <div>
+            <label for="appointmentTime">Heure:</label>
+            <input type="time" id="appointmentTime" name="appointmentTime">
+        </div>
+
+        <button onclick="bookAppointment()">Reserver</button>
+
+        <script>
+            window.onload = function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const doctorId = urlParams.get('id');
+                localStorage.setItem('chosenDoctorId', doctorId);
+            }
+            
+            function bookAppointment() {
+                const date = document.getElementById('appointmentDate').value;
+                const time = document.getElementById('appointmentTime').value;
+                const doctorId = localStorage.getItem('chosenDoctorId');
+        
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "./phpDatabase/book_appointment.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        alert("Appointment booked!");
+                    }
+                };
+                xhr.send(`doctorId=${doctorId}&date=${date}&time=${time}`);
+            }
+            </script>
+        </div>
+    </body>
+</html>

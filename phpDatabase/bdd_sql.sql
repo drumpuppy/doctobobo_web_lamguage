@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `doctobobo`.`Consultation` (
   `Patient_idPatient` INT NOT NULL,
   `motif` VARCHAR(300) NULL,
   `description` VARCHAR(300) NULL,
-  `Prescription_idPrescription` INT NOT NULL,
+  `Prescription_idPrescription` INT NULL,
   `Medecin_idMedecin` INT NOT NULL,
   PRIMARY KEY (`idConsultation`),
   INDEX `fk_Consultation_Patient1_idx` (`Patient_idPatient` ASC) VISIBLE,

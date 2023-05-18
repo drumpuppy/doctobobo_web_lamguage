@@ -54,5 +54,21 @@ body {
 }
 
 
+.book-appointment-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(20, 125, 200);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: background-color 0.2s ease;
+}
+
+.book-appointment-button:hover {
+    background-color: rgb(10, 95, 170);
+}
+
+
 
 

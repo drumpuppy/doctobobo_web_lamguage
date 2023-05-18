@@ -32,8 +32,11 @@
                     doctorDiv.innerHTML = `
                         <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
                         <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
-                        <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>
-                        <hr>`;
+                        <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>`;
+                    if (sessionStorage.getItem('user_type') === 'patient') {
+                        doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Book Appointment</a>`;
+                    }
+                    doctorDiv.innerHTML += `<hr>`;
                     resultsContainer.appendChild(doctorDiv);
                 });
             }

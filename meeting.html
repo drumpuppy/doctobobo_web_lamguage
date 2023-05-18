@@ -3,36 +3,83 @@
 <html>  
     <link rel="stylesheet" href="meeting.css">
     <head>  
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RDV</title>  
- </head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RDV</title>  
+    </head>  
 
- <body>  
+    <body>  
+        <ul class="menu">
+            <li>
+              <a href="landing_page.html" class="actif">Doctobobo</a>
+            </li>
+            <li>
+                <a href="connection_page.html" class="actif">Se connecter</a>
+            </li>
+            <li>
+                <a href="meeting.html" class="actif">Mes rendez-vous</a>
+            </li>
+            <li>
+                <a href="my_space.html" class="actif">Mon espace</a>
+            </li>
+        </ul>
 
-    <ul class="menu">
-        <li>
-          <a href="landing_page.html" class="actif">Doctobobo</a>
-        </li>
-        <li>
-            <a href="connection_page.html" class="actif">Se connecter</a>
-        </li>
-        <li>
-            <a href="meeting.html" class="actif">Mes rendez-vous</a>
-        </li>
-        <li>
-            <a href="my_space.html" class="actif">Mon espace</a>
-        </li>
-    </ul>
+        <br />
 
-    <br />
-
-    <div class="mes_rdv">
-        <h1 style="color: rgb(20, 125, 200)">Mes prochains rendez-vous :</h1>
+        <div class="mes_rdv">
+            <h1 style="color: rgb(20, 125, 200)">Mes prochains rendez-vous :</h1>
+            
+            <div id="appointments">
+                <script>
+                    window.onload = function() {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", "./phpDatabase/get_appointments.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    const appointments = JSON.parse(xhr.responseText);
+                                    displayAppointments(appointments);
+                                }
+                            }
+                        };
+                        xhr.send();
+                    };
         
-        <form action="/page-rdv" method="post">
+                    function displayAppointments(appointments) {
+                        const appointmentsContainer = document.getElementById("appointments");
+        
+                        if (appointments.length === 0) {
+                            appointmentsContainer.innerHTML = '<p>Aucun rendez-vous trouvé.</p>';
+                        } else {
+                            appointments.forEach(function(appointment) {
+                                const appointmentDiv = document.createElement("div");
+                                const dateTime = appointment.DateHeure;
+                                
+                                if(dateTime) {
+                                    const dateTimeParts = dateTime.split(' ');
+                                    const date = dateTimeParts[0];
+                                    const time = dateTimeParts[1];
 
-        </form>
-    </div>
-  </body>
-  </html>
+                                    appointmentDiv.innerHTML = `
+                                        <p>Date: ${date}</p>
+                                        <p>Time: ${time}</p>
+                                        <hr>
+                                    `;
+                                } else {
+                                    appointmentDiv.innerHTML = `
+                                        <p>No Appointment Data Available</p>
+                                        <hr>
+                                    `;
+                                }
+
+                                appointmentsContainer.appendChild(appointmentDiv);
+                            });
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
+    </body>
+</html>
