@@ -1,77 +1,76 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
-    <link rel="stylesheet" href="result.css">
-    <script>
-        window.onload = function() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "./phpDatabase/get_search_result.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const doctors = JSON.parse(xhr.responseText);
-                        displaySearchResults(doctors);
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Results</title>
+        <link rel="stylesheet" href="result.css">
+    </head>
+    <body>
+        <ul class="menu">
+            <li>
+            <a href="landing_page.html" class="actif">Doctobobo</a>
+            </li>
+            <li>
+                <a href="connection_page.html" class="actif">Se connecter</a>
+            </li>
+            <li>
+                <a href="meeting.html" class="actif">Mes rendez-vous</a>
+            </li>
+            <li>
+                <a href="my_space.html" class="actif">Mon espace</a>
+            </li>
+        </ul>
+
+        <br />
+
+        <div class="resultat">
+            <h1 style="color: rgb(20, 125, 200)">Résultats de la recherche :</h1>
+            
+            <form action="/search-result" method="post">
+
+                <div id="search-results"></div>
+
+            </form>
+        </div>
+
+        <script>
+            window.onload = function() {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "./phpDatabase/get_search_result.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const doctors = JSON.parse(xhr.responseText);
+                            displaySearchResults(doctors);
+                        }
                     }
-                }
+                };
+                xhr.send();
             };
-            xhr.send();
-        };
-
-        function displaySearchResults(doctors) {
-            const resultsContainer = document.getElementById("search-results");
-
-            if (doctors.length === 0) {
-                resultsContainer.innerHTML = '<p>No results found.</p>';
-            } else {
-                doctors.forEach(function(doctor) {
-                    const doctorDiv = document.createElement("div");
-                    doctorDiv.innerHTML = `
-                        <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
-                        <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
-                        <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>`;
-                    if (sessionStorage.getItem('user_type') === 'patient') {
-                        doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Book Appointment</a>`;
-                    }
-                    doctorDiv.innerHTML += `<hr>`;
-                    resultsContainer.appendChild(doctorDiv);
-                });
+    
+            function displaySearchResults(doctors) {
+                const resultsContainer = document.getElementById("search-results");
+    
+                if (doctors.length === 0) {
+                    resultsContainer.innerHTML = '<p>No results found.</p>';
+                } else {
+                    doctors.forEach(function(doctor) {
+                        const doctorDiv = document.createElement("div");
+                        doctorDiv.innerHTML = `
+                            <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
+                            <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
+                            <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>`;
+                        if (sessionStorage.getItem('user_type') === 'patient') {
+                            doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Book Appointment</a>`;
+                        }
+                        doctorDiv.innerHTML += `<hr>`;
+                        resultsContainer.appendChild(doctorDiv);
+                    });
+                }
             }
-        }
-    </script>
-</head>
-<body>
+        </script>
 
-
-    <ul class="menu">
-        <li>
-          <a href="landing_page.html" class="actif">Doctobobo</a>
-        </li>
-        <li>
-            <a href="connection_page.html" class="actif">Se connecter</a>
-        </li>
-        <li>
-            <a href="meeting.html" class="actif">Mes rendez-vous</a>
-        </li>
-        <li>
-            <a href="my_space.html" class="actif">Mon espace</a>
-        </li>
-    </ul>
-
-    <br />
-
-    <div class="resultat">
-        <h1 style="color: rgb(20, 125, 200)">Résultats de la recherche :</h1>
-        
-        <form action="/search-result" method="post">
-
-            <div id="search-results"></div>
-
-        </form>
-    </div>
-
-</body>
+    </body>
 </html>
