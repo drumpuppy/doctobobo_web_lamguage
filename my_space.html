@@ -42,6 +42,7 @@
         <p>Adresse: <span id="user-address"></span></p>
         <p>Code postal: <span id="user-postal-code"></span></p>
         <p id="specialty-container">Spécialité: <span id="user-specialty"></span></p>
+        <p id="description-container">Description: <span id="user-description"></span></p>
 
         <button id="edit-info-btn">Modifier mes informations</button>
         <br />
@@ -77,7 +78,11 @@
             <br>
                 <label id="specialty-label" for="edit-specialty"></label>
                 <input type="text" id="edit-specialty" name="specialty" placeholder="Spécialité">
-            
+            <br>
+            <br>
+                <label id="description-label" for="edit-description"></label>
+                <input type="text" id="edit-description" name="description" placeholder="Description">
+
             <button type="submit">Enregistrer</button>
             <br>
             <br>
@@ -113,9 +118,11 @@
                             document.getElementById('user-address').innerText = response.data.adresse;
                             document.getElementById('user-postal-code').innerText = response.data.code_postal;
                             if (response.user_type === 'docteur') {
+                                document.getElementById('user-description').innerText = response.data.description;
                                 document.getElementById('user-specialty').innerText = response.data.Specialite;
                             } else {
                                 document.getElementById('specialty-container').style.display = 'none';
+                                document.getElementById('description-container').style.display = 'none';
                             }
                             userType = response.user_type;
                         } else {
@@ -154,10 +161,13 @@
         document.getElementById('edit-postal-code').value = document.getElementById('user-postal-code').innerText;
 
         if (userType === 'docteur') {
+            document.getElementById('edit-description').value = document.getElementById('user-description').innerText;
             document.getElementById('edit-specialty').value = document.getElementById('user-specialty').innerText;
         } else {
             document.getElementById('specialty-label').style.display = 'none';
             document.getElementById('edit-specialty').style.display = 'none';
+            document.getElementById('description-label').style.display = 'none';
+            document.getElementById('edit-description').style.display = 'none';
         }
 
         document.getElementById('edit-info-form').style.display = 'block';
@@ -172,6 +182,7 @@
         const address = document.getElementById('edit-address').value;
         const postalCode = document.getElementById('edit-postal-code').value;
         const specialty = document.getElementById('edit-specialty').value;
+        const description = document.getElementById('edit-description').value;
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', './phpDatabase/update_user_info.php', true);
@@ -191,7 +202,7 @@
             }
         };
 
-        const data = 'last_name=' + encodeURIComponent(lastName) + '&first_name=' + encodeURIComponent(firstName) + '&birthdate=' + encodeURIComponent(birthdate) + '&address=' + encodeURIComponent(address) + '&postal_code=' + encodeURIComponent(postalCode) + '&specialty=' + encodeURIComponent(specialty);
+        const data = 'last_name=' + encodeURIComponent(lastName) + '&first_name=' + encodeURIComponent(firstName) + '&birthdate=' + encodeURIComponent(birthdate) + '&address=' + encodeURIComponent(address) + '&postal_code=' + encodeURIComponent(postalCode) + '&specialty=' + encodeURIComponent(specialty) + '&description=' + encodeURIComponent(description);
         xhr.send(data);
         });
     </script>

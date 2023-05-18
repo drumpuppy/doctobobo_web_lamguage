@@ -26,12 +26,10 @@
 
         <div class="resultat">
             <h1 style="color: rgb(20, 125, 200)">Résultats de la recherche :</h1>
+
+            <div id="search-results"></div>
+
             
-            <form action="/search-result" method="post">
-
-                <div id="search-results"></div>
-
-            </form>
         </div>
 
         <script>
@@ -54,11 +52,12 @@
                 const resultsContainer = document.getElementById("search-results");
     
                 if (doctors.length === 0) {
-                    resultsContainer.innerHTML = '<p>No results found.</p>';
+                    resultsContainer.innerHTML = '<p>Aucun resultat.</p>';
                 } else {
                     doctors.forEach(function(doctor) {
                         const doctorDiv = document.createElement("div");
                         doctorDiv.innerHTML = `
+                            <hr>
                             <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
                             <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
                             <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>`;
@@ -66,8 +65,24 @@
                         if (localStorage.getItem('user_type') === 'patient') {
                             doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Prendre Rendez-vous</a>`;
                         }
-                        doctorDiv.innerHTML += `<hr>`;
+                        doctorDiv.innerHTML += `<br>`;
                         resultsContainer.appendChild(doctorDiv);
+
+                        const moreInfoDiv = document.createElement("div");
+                        moreInfoDiv.style.display = "none";
+                        moreInfoDiv.innerHTML = `
+                            <p><strong>Adresse:</strong> ${doctor.adresse}</p>
+                            <p><strong>Code Postal:</strong> ${doctor.code_postal}</p>
+                            <p><strong>Description:</strong> ${doctor.description}</p>`;
+                        const expandButton = document.createElement("button");
+                        expandButton.textContent = "Plus de détails";
+                        expandButton.addEventListener("click", function() {
+                            moreInfoDiv.style.display = moreInfoDiv.style.display === "none" ? "block" : "none";
+                        });
+                        doctorDiv.appendChild(expandButton);
+                        doctorDiv.appendChild(moreInfoDiv);
+                        resultsContainer.appendChild(doctorDiv);
+                        
                     });
                 }
             }

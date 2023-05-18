@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `doctobobo`.`Medecin` (
   `password` VARCHAR(200) NOT NULL,
   `adresse` VARCHAR(100) NOT NULL,
   `code_postal` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
   PRIMARY KEY (`idMedecin`))
 ENGINE = InnoDB;
 

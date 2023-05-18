@@ -23,8 +23,7 @@
     if ($user_type === "patient") {
         $sql = "UPDATE patient SET Nom_Patient=?, Prenom_Patient=?, DateNaissance=?, adresse=?, code_postal=? WHERE idPatient=?";
     } else if ($user_type === "docteur") {
-        $sql = "UPDATE medecin SET Nom_Medecin=?, Prenom_Medecin=?, DateNaissance=?, adresse=?, code_postal=?, Specialite=? WHERE idMedecin=?";
-    } else {
+        $sql = "UPDATE medecin SET Nom_Medecin=?, Prenom_Medecin=?, DateNaissance=?, adresse=?, code_postal=?, Specialite=?, description=? WHERE idMedecin=?";    } else {
         echo json_encode(['success' => false]);
         exit();
     }
@@ -37,7 +36,7 @@
     if ($user_type === "patient") {
         $stmt->bind_param("sssssi", $_POST['last_name'], $_POST['first_name'], $_POST['birthdate'], $_POST['address'], $_POST['postal_code'], $user_id);
     } else {
-        $stmt->bind_param("ssssssi", $_POST['last_name'], $_POST['first_name'], $_POST['birthdate'], $_POST['address'], $_POST['postal_code'], $_POST['specialty'], $user_id);
+        $stmt->bind_param("sssssssi", $_POST['last_name'], $_POST['first_name'], $_POST['birthdate'], $_POST['address'], $_POST['postal_code'], $_POST['specialty'], $_POST['description'], $user_id);
     }
 
     header('Content-Type: application/json');
