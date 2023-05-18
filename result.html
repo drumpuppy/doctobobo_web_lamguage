@@ -62,8 +62,9 @@
                             <p><strong>Nom:</strong> ${doctor.Nom_Medecin}</p>
                             <p><strong>Prenom:</strong> ${doctor.Prenom_Medecin}</p>
                             <p><strong>Spécialité:</strong> ${doctor.Specialite}</p>`;
-                        if (sessionStorage.getItem('user_type') === 'patient') {
-                            doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Book Appointment</a>`;
+                        console.log('User Type:', localStorage.getItem('user_type'));
+                        if (localStorage.getItem('user_type') === 'patient') {
+                            doctorDiv.innerHTML += `<a href="book_appointment.html?id=${doctor.idMedecin}" class="book-appointment-button">Prendre Rendez-vous</a>`;
                         }
                         doctorDiv.innerHTML += `<hr>`;
                         resultsContainer.appendChild(doctorDiv);

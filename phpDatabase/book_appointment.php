@@ -40,8 +40,8 @@ if(!$stmt){
     exit();
 }
 
-$motif = ""; // TODO
-$description = ""; // TODO
+$motif = "";
+$description = "";
 $stmt->bind_param("siiss", $datetime, $user_id, $doctor_id, $motif, $description);
 echo $stmt->affected_rows;
 $result = $stmt->execute();
