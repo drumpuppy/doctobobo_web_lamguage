@@ -25,19 +25,21 @@
 
         <br />
 
+    <div class="prise_rdv">
         <div>        
             <h1>Prendre rendez-vous</h1>
         <div>
             <label for="appointmentDate">Date:</label>
-            <input type="date" id="appointmentDate" name="appointmentDate">
+            <input type="date" id="appointmentDate" name="appointmentDate" required>
         </div>
 
         <div>
             <label for="appointmentTime">Heure:</label>
-            <input type="time" id="appointmentTime" name="appointmentTime">
+            <input type="time" id="appointmentTime" name="appointmentTime" required>
         </div>
 
         <button onclick="bookAppointment()">Reserver</button>
+    </div>
 
         <script>
             window.onload = function() {
