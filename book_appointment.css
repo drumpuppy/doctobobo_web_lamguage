@@ -40,6 +40,14 @@ body {
     border-color: #ffe843;
 }
 
+.prise_rdv {
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
 h1 {
     color: rgb(20, 125, 200);
     text-align: center;
