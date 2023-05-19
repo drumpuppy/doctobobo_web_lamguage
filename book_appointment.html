@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Prise de rendez-vous</title>
         <link rel="stylesheet" href="book_appointment.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- jQuery UI library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <!-- jQuery Timepicker Addon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"></script>
     </head>
 
     <body>
@@ -35,17 +42,38 @@
             
             <div>
                 <label for="appointmentDate">Date:</label>
-                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                <input type="text" id="appointmentDate" name="appointmentDate" required>
             </div>
 
             <div>
                 <label for="appointmentTime">Heure:</label>
-                <input type="time" id="appointmentTime" name="appointmentTime" required>
+                <select id="appointmentTime" name="appointmentTime" required></select>
             </div>
 
             <button onclick="bookAppointment()">Reserver</button>
             <br />
         </div>
+
+        <script>
+            $(document).ready(function() {
+                $("#appointmentDate").datepicker({
+                    minDate: 0,
+                    dateFormat: 'yy-mm-dd',
+                    onSelect: function(dateText) {
+                        var doctorId = localStorage.getItem('chosenDoctorId');
+                        $.post("./phpDatabase/get_available_slots.php", {doctorId: doctorId, date: dateText}, function(data) {
+                            console.log(data);
+                            var availableSlots = JSON.parse(data);
+                            var select = $('#appointmentTime');
+                            select.empty();
+                            availableSlots.forEach(function(slot) {
+                                select.append($('<option></option>').attr('value', slot).text(slot));
+                            });
+                        });
+                    }
+                });
+            });
+        </script>
 
         <script>
             window.onload = function() {
