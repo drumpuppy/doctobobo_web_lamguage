@@ -20,6 +20,11 @@
             <li>
                 <a href="my_space.html" class="actif">Mon espace</a>
             </li>
+            <li>
+                <a>
+                <button id="logout-btn">Se déconnecter</button>
+                </a>
+            </li>
         </ul>
 
         <br />
@@ -86,6 +91,21 @@
                     });
                 }
             }
+        </script>
+
+        <script>
+            document.getElementById('logout-btn').addEventListener('click', function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', './phpDatabase/logout.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        window.location.href = 'connection_page.html';
+                    }
+                }
+            };
+            xhr.send();
+            });
         </script>
 
     </body>
