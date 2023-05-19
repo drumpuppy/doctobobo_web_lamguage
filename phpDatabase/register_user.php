@@ -81,7 +81,7 @@ $firstName = $_POST['prenom'];
 $lastName = $_POST['nom'];
 $birthdate = $_POST['age'];
 $email = $_POST['email'];
-$password = $_POST['pwd'];
+$password = md5($_POST['pwd']);
 $speciality = $_POST['specialite'];
 
 

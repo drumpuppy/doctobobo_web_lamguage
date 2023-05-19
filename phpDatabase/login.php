@@ -65,7 +65,7 @@ function checkCredentials($email, $password, $userType) {
 
 
 $email = $_POST['email'];
-$password = $_POST['pwd'];
+$password = md5($_POST['pwd']);
 $userType = $_POST['titre'];
 
 $userId = checkCredentials($email, $password, $userType);
