@@ -93,10 +93,60 @@
     <br />
 
     <div class="rdv_passé">
-        <h1 style="color: rgb(20, 125, 200)">Mes rendez-vous passés :</h1>
+        <h1 style="color: rgb(20, 125, 200)">Mes rendez-vous passé:</h1>
+        <div class="mes_rdv">
+            <div id="appointments">
+                <script>
+                    window.onload = function() {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", "./phpDatabase/get_past_appointment.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    const appointments = JSON.parse(xhr.responseText);
+                                    displayAppointments(appointments);
+                                }
+                            }
+                        };
+                        xhr.send();
+                    };
         
-        <form>
-        </form>
+                    function displayAppointments(appointments) {
+                        const appointmentsContainer = document.getElementById("appointments");
+        
+                        if (appointments.length === 0) {
+                            appointmentsContainer.innerHTML = '<p>Aucun rendez-vous trouvé.</p>';
+                        } else {
+                            appointments.forEach(function(appointment) {
+                                const appointmentDiv = document.createElement("div");
+                                const dateTime = appointment.DateHeure;
+                                
+                                if(dateTime) {
+                                    const dateTimeParts = dateTime.split(' ');
+                                    const date = dateTimeParts[0];
+                                    const time = dateTimeParts[1];
+
+                                    appointmentDiv.innerHTML = `
+                                        <p>Date: ${date}</p>
+                                        <p>Time: ${time}</p>
+                                        <hr>
+                                    `;
+                                } else {
+                                    appointmentDiv.innerHTML = `
+                                        <p>No Appointment Data Available</p>
+                                        <hr>
+                                    `;
+                                }
+
+                                appointmentsContainer.appendChild(appointmentDiv);
+                            });
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
     </div>
 
     <script>
