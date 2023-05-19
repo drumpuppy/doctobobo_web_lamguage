@@ -20,9 +20,9 @@ $userId = $_SESSION['user_id'];
 $userType = $_SESSION['user_type'];
 
 if ($userType === 'docteur') {
-    $sql = "SELECT * FROM Consultation WHERE Medecin_idMedecin = ? ORDER BY DateHeure ASC";
+    $sql = "SELECT * FROM Consultation WHERE Medecin_idMedecin = ? AND DateHeure > NOW() ORDER BY DateHeure ASC";
 } else {
-    $sql = "SELECT * FROM Consultation WHERE Patient_idPatient = ? ORDER BY DateHeure ASC";
+    $sql = "SELECT * FROM Consultation WHERE Patient_idPatient = ? AND DateHeure > NOW() ORDER BY DateHeure ASC";
 }
 
 $stmt = $conn->prepare($sql);

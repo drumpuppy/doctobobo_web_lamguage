@@ -27,10 +27,38 @@ $date = $_POST['date'];
 $time = $_POST['time'];
 $datetime = $date . ' ' . $time;
 
+$datetime_object = new DateTime($datetime);
+
+if ($datetime_object <= new DateTime()) {
+    echo json_encode(['success' => false, 'message' => 'Appointment must be scheduled for a future time']);
+    exit();
+}
+
+$hour = $datetime_object->format('H');
+$minute = $datetime_object->format('i');
+
+if ($hour < 8 || $hour > 19 || $minute % 15 !== 0) {
+    echo json_encode(['success' => false, 'message' => 'Appointment must be between 8:00 and 19:00 and on the quarter-hour']);
+    exit();
+}
+
 if ($user_type !== 'patient') {
     echo json_encode(['success' => false, 'message' => 'Only patients can book appointments']);
     exit();
 }
+
+$sql_check = "SELECT * FROM Consultation WHERE Medecin_idMedecin = ? AND DateHeure = ?";
+$stmt_check = $conn->prepare($sql_check);
+$stmt_check->bind_param("is", $doctor_id, $datetime);
+$stmt_check->execute();
+
+$result_check = $stmt_check->get_result();
+if ($result_check->num_rows > 0) {
+    echo json_encode(['success' => false, 'message' => 'Doctor already has an appointment at this time']);
+    exit();
+}
+
+$stmt_check->close();
 
 $sql = "INSERT INTO Consultation (DateHeure, Patient_idPatient, Medecin_idMedecin, motif, description) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
