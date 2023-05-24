@@ -20,9 +20,9 @@ $userId = $_SESSION['user_id'];
 $userType = $_SESSION['user_type'];
 
 if ($userType === 'docteur') {
-    $sql = "SELECT * FROM Consultation WHERE Medecin_idMedecin = ? AND DateHeure < NOW() ORDER BY DateHeure ASC";
+    $sql = "SELECT c.*, p.Prenom_Patient, p.Nom_Patient FROM Consultation c JOIN Patient p ON c.Patient_idPatient = p.idPatient WHERE c.Medecin_idMedecin = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC";
 } else {
-    $sql = "SELECT * FROM Consultation WHERE Patient_idPatient = ? AND DateHeure < NOW() ORDER BY DateHeure ASC";
+    $sql = "SELECT c.*, m.Prenom_Medecin, m.Nom_Medecin, m.adresse FROM Consultation c JOIN Medecin m ON c.Medecin_idMedecin = m.idMedecin WHERE c.Patient_idPatient = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC";
 }
 
 $stmt = $conn->prepare($sql);
@@ -32,8 +32,13 @@ $stmt->execute();
 $result = $stmt->get_result();
 $appointments = $result->fetch_all(MYSQLI_ASSOC);
 
+$response = array(
+    'userType' => $userType,
+    'appointments' => $appointments,
+);
+
 $stmt->close();
 $conn->close();
 
-echo json_encode($appointments);
+echo json_encode($response);
 ?>

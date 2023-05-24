@@ -43,17 +43,17 @@
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState === XMLHttpRequest.DONE) {
                                 if (xhr.status === 200) {
-                                    const appointments = JSON.parse(xhr.responseText);
-                                    displayAppointments(appointments);
+                                    const response = JSON.parse(xhr.responseText);
+                                    displayAppointments(response.appointments, response.userType);
                                 }
                             }
                         };
                         xhr.send();
                     };
-        
-                    function displayAppointments(appointments) {
+
+                    function displayAppointments(appointments, userType) {
                         const appointmentsContainer = document.getElementById("appointments");
-        
+
                         if (appointments.length === 0) {
                             appointmentsContainer.innerHTML = '<p>Aucun rendez-vous trouvé.</p>';
                         } else {
@@ -66,14 +66,25 @@
                                     const date = dateTimeParts[0];
                                     const time = dateTimeParts[1];
 
-                                    appointmentDiv.innerHTML = `
+                                    if (userType === 'docteur') {
+                                        appointmentDiv.innerHTML = `
+                                            <p>Date: ${date}</p>
+                                            <p>Heure: ${time}</p>
+                                            <p>Patient: ${appointment.Prenom_Patient} ${appointment.Nom_Patient}</p>
+                                            <hr>
+                                        `;
+                                    } else {
+                                        appointmentDiv.innerHTML = `
                                         <p>Date: ${date}</p>
-                                        <p>Time: ${time}</p>
-                                        <hr>
-                                    `;
+                                            <p>Heure: ${time}</p>
+                                            <p>Docteur: ${appointment.Prenom_Medecin} ${appointment.Nom_Medecin}</p>
+                                            <p>Addresse: ${appointment.adresse}</p>
+                                            <hr>
+                                        `;
+                                    }
                                 } else {
                                     appointmentDiv.innerHTML = `
-                                        <p>No Appointment Data Available</p>
+                                        <p>Aucun rendez-vous disponible</p>
                                         <hr>
                                     `;
                                 }
