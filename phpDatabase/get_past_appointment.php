@@ -20,9 +20,9 @@ $userId = $_SESSION['user_id'];
 $userType = $_SESSION['user_type'];
 
 if ($userType === 'docteur') {
-    $sql = "SELECT c.*, p.Prenom_Patient, p.Nom_Patient FROM Consultation c JOIN Patient p ON c.Patient_idPatient = p.idPatient WHERE c.Medecin_idMedecin = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC";
+    $sql = "SELECT c.*, p.Prenom_Patient, p.Nom_Patient, pre.Medicaments, pre.NbrJours FROM Consultation c JOIN Patient p ON c.Patient_idPatient = p.idPatient JOIN Prescription pre ON c.Prescription_idPrescription=pre.idPrescription WHERE c.Medecin_idMedecin = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC;";
 } else {
-    $sql = "SELECT c.*, m.Prenom_Medecin, m.Nom_Medecin, m.adresse FROM Consultation c JOIN Medecin m ON c.Medecin_idMedecin = m.idMedecin WHERE c.Patient_idPatient = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC";
+    $sql = "SELECT c.*,m.Prenom_Medecin , m.Nom_Medecin, m.adresse, pre.Medicaments, pre.NbrJours FROM Consultation c JOIN Medecin m ON c.Medecin_idMedecin = m.idMedecin JOIN Prescription pre ON c.Prescription_idPrescription=pre.idPrescription WHERE c.Patient_idPatient = ? AND c.DateHeure < NOW() ORDER BY c.DateHeure ASC;";
 }
 
 $stmt = $conn->prepare($sql);

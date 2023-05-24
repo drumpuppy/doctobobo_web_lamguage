@@ -132,6 +132,8 @@
                                             <p>Date: ${date}</p>
                                             <p>Heure: ${time}</p>
                                             <p>Patient: ${appointment.Prenom_Patient} ${appointment.Nom_Patient}</p>
+                                            <p>Medicaments: ${appointment.Medicaments}</p>
+                                            <p>Jours d'arrêts maladie: ${appointment.NbrJours}</p>
                                             <hr>
                                         `;
                                     } else {
@@ -140,6 +142,8 @@
                                             <p>Heure: ${time}</p>
                                             <p>Docteur: ${appointment.Prenom_Medecin} ${appointment.Nom_Medecin}</p>
                                             <p>Addresse: ${appointment.adresse}</p>
+                                            <p>Medicaments: ${appointment.Medicaments}</p>
+                                            <p>Jours d'arrêts maladie: ${appointment.NbrJours}</p>
                                             <hr>
                                         `;
                                     }
