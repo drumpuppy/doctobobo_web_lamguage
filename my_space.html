@@ -84,6 +84,7 @@
                 <input type="text" id="edit-description" name="description" placeholder="Description">
 
             <button type="submit">Enregistrer</button>
+            
             <br>
             <br>
         </form>
@@ -111,6 +112,8 @@
                         };
                         xhr.send();
                     };
+                    var add_prescription= "none";
+                    var update_prescription= "none";
         
                     function displayAppointments(appointments, userType) {
                         const appointmentsContainer = document.getElementById("appointments");
@@ -129,11 +132,35 @@
 
                                     if (userType === 'docteur') {
                                         appointmentDiv.innerHTML = `
+                                            <div class="left">
                                             <p>Date: ${date}</p>
                                             <p>Heure: ${time}</p>
                                             <p>Patient: ${appointment.Prenom_Patient} ${appointment.Nom_Patient}</p>
                                             <p>Medicaments: ${appointment.Medicaments}</p>
                                             <p>Jours d'arrêts maladie: ${appointment.NbrJours}</p>
+                                            </div>
+                                            <div class="right">
+                                            <button onclick="openadd()">ajout d'une prescription</button>
+                                            <button onclick="openupdate()">Modification d'une prescription</button>
+
+                                            <form id="add_prescription" style="display:${add_prescription}";" action="phpDatabase/add_prescription.php" method="post" >
+                                                <p> ajout de la prescription</p>
+                                                <p>Jours d'arret maladie</p>
+                                                <input type="text" name="id_Prescription" style= "display: none" value="${appointment.Prescription_idPrescription}"></input>
+                                                <input type="text" name="NbrJours"/>
+                                                <p>medicaments</p>
+                                                <input type="text" name="Medicament"/>
+                                                <button type="submit">Ajout</button>
+                                            </form>
+                                            <form id="Update_prescription" style="display:${update_prescription}";" action="phpDatabase/update_prescription.php" method="post">
+                                                <p> mise à jour de la prescription</p>
+                                                <p>Jours d'arret maladie</p>
+                                                <input type="text" name="NbrJours"/>
+                                                <p>medicaments</p>
+                                                <input type="text" name="Medicament"/>
+                                                <button type="submit">Mise à jour</button>
+                                            </form>
+                                            </div>
                                             <hr>
                                         `;
                                     } else {
@@ -158,11 +185,55 @@
                             });
                         }
                     }
+                    function openadd(){
+                        document.getElementById('add_prescription').style.display = 'block';
+                        update_prescription="none";
+                    }
+                    function openupdate(){
+                        document.getElementById('Update_prescription').style.display = 'block';
+                        add_prescription="none";
+                    }
+
                 </script>
 
             </div>
         </div>
     </div>
+
+    <script>
+       function refresh_update(){
+       const xhr = new XMLHttpRequest();
+        xhr.open("POST", "./phpDatabase/update_prescription.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    //window.location.href = 'my_space.html';
+                    console.log("test1");
+                }
+            }
+        };
+        xhr.send();
+    }
+        document.addEventListener('DOMContentLoaded', refresh_update);
+    </script>
+    <script>
+        function refresh_add(){
+        const xhr = new XMLHttpRequest();
+         xhr.open("POST", "./phpDatabase/add_prescription.php", true);
+         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+         xhr.onreadystatechange = function() {
+             if (xhr.readyState === XMLHttpRequest.DONE) {
+                 if (xhr.status === 200) {
+                    //window.location.href = 'my_space.html';
+                     console.log("test2");
+                 }
+             }
+         };
+         xhr.send();
+        }
+         document.addEventListener('DOMContentLoaded', refresh_add);
+     </script>
 
     <script>
         let userType = '';
