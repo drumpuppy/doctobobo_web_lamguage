@@ -1,0 +1,28 @@
+.navigation {
+    display: flex;
+    flex-wrap: wrap; /* Pour gérer les retours à la ligne si nécessaire */
+    width: 100%; /* Prend toute la largeur disponible */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime les marges internes */
+    background-color: #14d3c9;
+    justify-content: space-around;
+}
+
+.navigation li {
+    list-style-type: none ;       /* Suppression des puces */
+}
+
+.navigation a {
+    display:block;                /* Transformation en block */
+    min-width: 120px;             /* Largeur minimale des liens */   
+    margin: 0.5rem;               /* Marges externes */
+    padding: 0.4rem 0;            /* Marges internes */
+    text-align: center;           /* Centrage du texte */   
+    border-radius: 4px;          /* Arrondis des bordures */
+}
+
+.navigation a:hover{
+    background-color: #0400f0;
+    color: #ffe843;
+    border-color: #ffe843;
+}

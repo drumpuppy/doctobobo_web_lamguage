@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Results</title>
+        <link rel="stylesheet" href="./css/result.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="stylesheet" href="./css/class/navigation.css">
+        <script src="./js/my_lib.js"></script>
+
+    </head>
+    <body>
+        <ul class="navigation" id="navigation"></ul>
+        <br />
+
+        <div class="resultat">
+            <h1 style="color: rgb(20, 125, 200)">Résultats de la recherche :</h1>
+
+            <div id="search-results"></div>
+
+            
+        </div>
+
+        <script>
+            window.onload = function() {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "./phpDatabase/get_search_result.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const doctors = JSON.parse(xhr.responseText);
+                            displaySearchResults(doctors);
+                        }
+                    }
+                };
+                xhr.send();
+            };
+        </script>
+
+        <script> 
+            $(function(){
+            $("#navigation").load("./html/navigation.html"); 
+            });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<li>
+    <a href="landing_page.html" class="actif">Doctobobo</a>
+</li>
+<li>
+    <a href="connection_page.html" class="actif">Se connecter</a>
+</li>
+<li>
+    <a href="meeting.html" class="actif">Mes rendez-vous</a>
+</li>
+<li>
+    <a href="my_space.html" class="actif">Mon espace</a>
+</li>
+<li>
+    <a>
+        <button id="logout-btn" onload="logout()">Se déconnecter</button>
+    </a>
+</li>
+
+<script>
+    document.getElementById('logout-btn').addEventListener('click', function() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', './phpDatabase/logout.php', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                window.location.href = 'connection_page.html';
+            }
+        }
+    };
+    xhr.send();
+    });
+</script>

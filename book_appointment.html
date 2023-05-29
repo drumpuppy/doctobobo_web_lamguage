@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prise de rendez-vous</title>
+        <link rel="stylesheet" href="./css/book_appointment.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"></script>
+        <link rel="stylesheet" href="./css/class/navigation.css">
+        <script src="./js/my_lib.js"></script>
+    </head>
+
+    <body>
+        <ul class="navigation" id="navigation"></ul>
+        <br />
+
+        <div class="prise_rdv">      
+            <h1>Prendre rendez-vous</h1>
+            
+            <div>
+                <label for="appointmentDate">Date:</label>
+                <input type="text" id="appointmentDate" name="appointmentDate" required>
+            </div>
+
+            <div>
+                <label for="appointmentTime">Heure:</label>
+                <select id="appointmentTime" name="appointmentTime" required></select>
+            </div>
+
+            <button onclick="bookAppointment()">Reserver</button>
+            <br />
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                setupDatepicker();
+            });
+
+            window.onload = function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const doctorId = urlParams.get('id');
+                localStorage.setItem('chosenDoctorId', doctorId);
+            }
+
+            $(function(){
+              $("#navigation").load("./html/navigation.html"); 
+            });
+        </script>
+
+    </body>
+</html>

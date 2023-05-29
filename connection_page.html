@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html>
+    <link rel="stylesheet" href="./css/connection.css">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/class/navigation.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>Connexion</title>
+ </head>
+ <body>
+    <ul class="navigation" id="navigation"></ul>
+  <br />
+
+    <div class="connection_compte">
+        <h1 style="color: rgb(20, 125, 200)">J'ai un compte Doctobobo</h1>
+
+        <form>
+            <br />
+            <input type="radio" name="titre" value="docteur"> Docteur
+            <input type="radio" name="titre" value="patient"> Patient
+            <br />
+
+            <div>
+                <label for="email"> Votre adresse email :</label>
+                <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
+            </div>
+
+            <div>
+                <label for="password"> Votre mot de passe :</label>
+                <input type="password" id="pwd" name="pwd" placeholder="Mot de passe" required>
+            </div>
+
+            <div>
+                <button type="submit">Se connecter</button>
+            </div>
+            <div id="error-message" style="display: none; color: red;">
+                Mot de passe ou Email invalide. Réessayez ou inscrivez-vous.
+            </div>
+        </form>
+    </div>
+
+    <br />
+
+    <div class="retour_inscription">
+        <h1 style="color: rgb(20, 125, 200)">Nouveau sur Doctobobo ?</h1>
+
+        <form action="inscription.html" method="post">
+
+            <div>
+                <button type="submit">S'inscrire</button>
+            </div>
+
+        </form>
+    </div>
+    
+    <script src="./js/login.js"></script>
+
+    <script> 
+        $(function(){
+          $("#navigation").load("./html/navigation.html"); 
+        });
+    </script>
+
+
+</body>
+</html>

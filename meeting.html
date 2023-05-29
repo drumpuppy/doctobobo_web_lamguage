@@ -1,0 +1,48 @@
+<!DOCTYPE html>  
+<html lang="fr">
+<html>  
+    <link rel="stylesheet" href="./css/meeting.css">
+    <head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RDV</title>  
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="stylesheet" href="./css/class/navigation.css">
+        <script src="./js/appointment.js"></script>
+    </head>  
+
+    <body>  
+        <ul class="navigation" id="navigation"></ul>
+        <br />
+
+        <div class="mes_rdv">
+            <h1 style="color: rgb(20, 125, 200)">Mes prochains rendez-vous :</h1>
+            
+            <div id="appointments">
+                <script>
+                    window.onload = function() {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "./phpDatabase/get_appointments.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                const response = JSON.parse(xhr.responseText);
+                                displayAppointments(response);
+                            }
+                        }
+                    };
+                    xhr.send();
+                };
+                </script>      
+            </div>
+        </div>
+
+        <script> 
+            $(function(){
+            $("#navigation").load("./html/navigation.html"); 
+            });
+        </script>
+
+    </body>
+</html>

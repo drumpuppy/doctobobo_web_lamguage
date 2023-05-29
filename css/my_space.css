@@ -1,0 +1,127 @@
+body {
+    background: #dafcff;
+    font-family: Montserrat, "sans-serif";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #303030;
+}
+    
+.menu {
+    display: flex;
+    flex-wrap: wrap; /* Pour gérer les retours à la ligne si nécessaire */
+    width: 100%; /* Prend toute la largeur disponible */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime les marges internes */
+    background-color: #14d3c9;
+    justify-content: space-around;
+}
+
+.menu li {
+    list-style-type: none ;       /* Suppression des puces */
+    
+}
+
+.menu a {
+    display:block;                /* Transformation en block */
+    min-width: 120px;             /* Largeur minimale des liens */   
+    margin: 0.5rem;               /* Marges externes */
+    padding: 0.4rem 0;            /* Marges internes */
+    text-align: center;           /* Centrage du texte */   
+    border-radius: 4px;          /* Arrondis des bordures */
+}
+
+.menu a:hover{
+    background-color: #0400f0;
+    color: #ffe843;
+    border-color: #ffe843;
+}
+    
+.données_perso {
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
+.données_perso > h1 {       /*Aligne le titre du cadre*/
+    font-weight: 500;
+    text-align : center;
+    font-weight: bold;
+}
+
+/*Style du bouton*/
+.données_perso > button {
+    background-color: rgb(20, 125, 200);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.rdv_passé {
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
+.rdv_passé > h1 {       /*Aligne le titre du cadre*/
+    font-weight: 500;
+    text-align : center;
+    font-weight: bold;
+}
+
+/*Ajout du bloc blanc*/
+#edit-info-form {
+    display: none;
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
+/*Mise en forme diu titre*/
+#edit-info-form h1 {
+    color: rgb(20, 125, 200);
+    font-weight: bold;
+    text-align : center;
+}
+
+#edit-info-form form > input {               /*Donne la couleur des barres des recherche et leurs styles*/
+    background: #efeeee;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Montserrat, "sans-serif";
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+#edit-info-form form > input {              /*Définit la taille des barres de recherche*/
+    height: 40px;
+    padding-left: 10px;
+    width: 70%;
+}
+
+/*Donne la couleur aux mots exemple*/
+#edit-info-form form > input::placeholder, form div > textarea::placeholder {
+    color: rgb(156, 155, 155);
+}
+
+/*Style du bouton*/
+#edit-info-form button[type="submit"] {
+    background-color: rgb(20, 125, 200);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html>  
+    <link rel="stylesheet" href="./css/my_space.css">
+    <head>  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/class/navigation.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./js/appointment.js"></script>
+    <title>Mon espace</title>  
+ </head>  
+
+ <body>
+    
+    <ul class="navigation" id="navigation"></ul>
+
+    <br />
+
+    <div class="données_perso">
+        <h1 style="color: rgb(20, 125, 200)">Mes données personnelles :</h1>
+        
+        <p>Nom: <span id="user-last-name"></span></p>
+        <p>Prénom: <span id="user-first-name"></span></p>
+        <p>Date de naissance: <span id="user-birthdate"></span></p>
+        <p>Email: <span id="user-email"></span></p>
+        <p>Adresse: <span id="user-address"></span></p>
+        <p>Code postal: <span id="user-postal-code"></span></p>
+        <p id="specialty-container">Spécialité: <span id="user-specialty"></span></p>
+        <p id="description-container">Description: <span id="user-description"></span></p>
+
+        <button id="edit-info-btn">Modifier mes informations</button>
+        <br />
+        <br />
+    </div>
+
+    <br />
+    <br />
+
+    <div id="edit-info-form" style="display: none;">
+        <h1>Modifier mes informations :</h1>
+        
+        <form>
+            <label for="edit-last-name"></label>
+            <input type="text" id="edit-last-name" name="last-name" placeholder="Nom">
+            <br>
+            <br>
+                <label for="edit-first-name"></label>
+                <input type="text" id="edit-first-name" name="first-name" placeholder="Prénom">
+            <br>
+            <br>
+                <label for="edit-birthdate"></label>
+                <input type="date" id="edit-birthdate" name="birthdate" placeholder="Date de naissance">
+            <br>
+            <br>
+                <label for="edit-address"></label>
+                <input type="text" id="edit-address" name="address" placeholder="Adresse">
+            <br>
+            <br>
+                <label for="edit-postal-code"></label>
+                <input type="text" id="edit-postal-code" name="postal-code" placeholder="Code postal">
+            <br>
+            <br>
+                <label id="specialty-label" for="edit-specialty"></label>
+                <input type="text" id="edit-specialty" name="specialty" placeholder="Spécialité">
+            <br>
+            <br>
+                <label id="description-label" for="edit-description"></label>
+                <input type="text" id="edit-description" name="description" placeholder="Description">
+
+            <button type="submit">Enregistrer</button>
+            <br>
+            <br>
+        </form>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="rdv_passé">
+        <h1 style="color: rgb(20, 125, 200)">Mes rendez-vous passé:</h1>
+        <div class="mes_rdv">
+            <div id="appointments">
+                <script>
+                    window.onload = function() {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", "./phpDatabase/get_past_appointment.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    const response = JSON.parse(xhr.responseText);
+                                    displayAppointments2(response.appointments, response.userType);
+                                }
+                            }
+                        };
+                        xhr.send();
+                    };
+        
+                </script>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userType = '';
+
+
+        function fetchData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', './phpDatabase/get_user_data.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            document.getElementById('user-last-name').innerText = response.data.Nom_Medecin || response.data.Nom_Patient;
+                            document.getElementById('user-first-name').innerText = response.data.Prenom_Medecin || response.data.Prenom_Patient;
+                            document.getElementById('user-birthdate').innerText = response.data.DateNaissance;
+                            document.getElementById('user-email').innerText = response.data.email;
+                            document.getElementById('user-address').innerText = response.data.adresse;
+                            document.getElementById('user-postal-code').innerText = response.data.code_postal;
+                            if (response.user_type === 'docteur') {
+                                document.getElementById('user-description').innerText = response.data.description;
+                                document.getElementById('user-specialty').innerText = response.data.Specialite;
+                            } else {
+                                document.getElementById('specialty-container').style.display = 'none';
+                                document.getElementById('description-container').style.display = 'none';
+                            }
+                            userType = response.user_type;
+                        } else {
+                            window.location.href = 'connection_page.html';
+                        }
+                    }
+                }
+            };
+            xhr.send();
+        }
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+
+    <script>
+        document.getElementById('edit-info-btn').addEventListener('click', function() {
+
+        document.getElementById('edit-last-name').value = document.getElementById('user-last-name').innerText;
+        document.getElementById('edit-first-name').value = document.getElementById('user-first-name').innerText;
+        document.getElementById('edit-birthdate').value = document.getElementById('user-birthdate').innerText;
+        document.getElementById('edit-address').value = document.getElementById('user-address').innerText;
+        document.getElementById('edit-postal-code').value = document.getElementById('user-postal-code').innerText;
+
+        if (userType === 'docteur') {
+            document.getElementById('edit-description').value = document.getElementById('user-description').innerText;
+            document.getElementById('edit-specialty').value = document.getElementById('user-specialty').innerText;
+        } else {
+            document.getElementById('specialty-label').style.display = 'none';
+            document.getElementById('edit-specialty').style.display = 'none';
+            document.getElementById('description-label').style.display = 'none';
+            document.getElementById('edit-description').style.display = 'none';
+        }
+
+        document.getElementById('edit-info-form').style.display = 'block';
+        });
+
+        document.getElementById('edit-info-form').querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const lastName = document.getElementById('edit-last-name').value;
+        const firstName = document.getElementById('edit-first-name').value;
+        const birthdate = document.getElementById('edit-birthdate').value;
+        const address = document.getElementById('edit-address').value;
+        const postalCode = document.getElementById('edit-postal-code').value;
+        const specialty = document.getElementById('edit-specialty').value;
+        const description = document.getElementById('edit-description').value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', './phpDatabase/update_user_info.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                    fetchData();
+                    document.getElementById('edit-info-form').style.display = 'none';
+                    } else {
+                    alert('An error occurred while updating your information. Please try again.');
+                    }
+                }
+            }
+        };
+
+        const data = 'last_name=' + encodeURIComponent(lastName) + '&first_name=' + encodeURIComponent(firstName) + '&birthdate=' + encodeURIComponent(birthdate) + '&address=' + encodeURIComponent(address) + '&postal_code=' + encodeURIComponent(postalCode) + '&specialty=' + encodeURIComponent(specialty) + '&description=' + encodeURIComponent(description);
+        xhr.send(data);
+        });
+    </script>
+
+    <script> 
+        $(function(){
+        $("#navigation").load("./html/navigation.html"); 
+        });
+    </script>
+
+  </body>
+</html>

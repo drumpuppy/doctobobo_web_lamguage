@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr"></html>
+<html>  
+ <head>  
+    <title>Inscription</title> 
+    <link rel="stylesheet" href="./css/inscription.css">
+    <link rel="stylesheet" href="./css/class/navigation.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <meta charset="utf-8">
+ </head>  
+ <body>  
+    <ul class="navigation" id="navigation"></ul>
+  <br />
+
+<div class="creation_compte">
+    <h1 style="color: rgb(20, 125, 200)">Je cree mon compte Doctobobo</h1>
+
+    <form action="./phpDatabase/register_user.php" method="post">
+
+        <br />
+        <input type="radio" name="titre" value="docteur"> Docteur 
+        <input type="radio" name="titre" value="patient"> Patient 
+        <br />
+
+        <div>
+        <label for="username">Votre prenom :</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Marie" required>
+        </div>
+
+        <div>
+        <label for="name">Votre nom :</label>
+        <input type="text" id="nom" name="nom" placeholder="Dupond" required>
+        </div>
+
+        <div>
+        <label for="age"> Votre date de naissance :</label>
+        <input type="text" id="age" name="age" placeholder="16/02/1999" required>
+        </div>
+
+        <div>
+        <label for="email"> Votre adresse email :</label>
+        <input type="text" id="email" name="email" placeholder="monadresse@mail.fr" required>
+        </div>
+
+        <div>
+        <label for="password"> Votre mot de passe :</label>
+        <input type="password" id="pwd" name="pwd" placeholder="Mot de passe" required>
+        </div>
+
+        <div>
+        <button type="submit">Creation du compte</button>
+        </div>
+        <div id="error-message" style="display: none; color: red;">
+            Il y a eu une erreur lors de la création du compte. Veuillez réessayer.
+        </div>
+    </form>
+    
+</div>
+
+<br />
+
+<div class="retour_connection">
+    <h1 style="color: rgb(20, 125, 200)">J'ai deja un compte Doctobobo</h1>
+    
+    <form action="connection_page.html" method="post">
+    
+        <div>
+        <button type="submit">Se connecter</button>
+        </div>
+    
+    </form>
+</div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+
+        if (error) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.style.display = 'block';
+
+            if (error === 'email_exists') {
+                errorDiv.textContent = 'Erreur: adresse email déjà existante';
+            } else if (error === 'invalid_date') {
+                errorDiv.textContent = 'Date de naissance invalide';
+            } else {
+                errorDiv.textContent = 'There was an error registering your account. Please try again.';
+            }
+        }
+    </script>
+
+    <script> 
+        $(function(){
+        $("#navigation").load("./html/navigation.html"); 
+        });
+    </script>
+
+ </body>  
+</html>

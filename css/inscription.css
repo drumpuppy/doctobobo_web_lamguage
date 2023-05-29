@@ -1,0 +1,88 @@
+body {
+    background: #dafcff;
+    font-family: Montserrat, "sans-serif";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #303030;
+}
+
+/*Design des div*/
+.creation_compte {
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0 50px 0 50px;
+    background: white;
+}
+
+.creation_compte > h1 {
+    font-weight: 500;
+    text-align : center;
+    font-weight: bold;
+}
+
+form div {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    min-height: 83px;
+    margin-top: 25px;
+}
+
+form div > label {
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+form div > input {
+    background: #efeeee;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Montserrat, "sans-serif";
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+form div > input {
+    height: 50px;
+    padding-left: 10px;
+}
+
+form div > input::placeholder, form div > textarea::placeholder {
+    color: rgb(111, 108, 108);
+}
+
+/*Permet d'aligner le bouton submit*/
+form div:last-child {
+    align-items:center;
+    margin-top: 20px;
+}
+
+/*Design du bouton Creation*/
+form button {
+    width: 300px;
+    height: 50px;
+    font-size: 28px;
+    background: white;
+    border: rgba(48, 48, 48, 0.5) solid 1px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: #303030;
+}
+
+.retour_connection {
+    width: 700px;
+    border: 1px solid;
+    border-radius: 8px; /*permet d'arrondir les angles du cadre*/
+    border: 1px solid;
+    background: white;
+}
+    
+.retour_connection > h1 {
+    font-weight: 500;
+    text-align : center;
+    font-weight: bold;
+}

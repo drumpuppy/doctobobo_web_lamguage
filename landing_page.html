@@ -1,0 +1,48 @@
+<!DOCTYPE html>  
+<html lang="fr">
+<html>
+    <head>  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="./css/landing_page.css">
+    <link rel="stylesheet" href="./css/class/navigation.css">
+    <title>Page accueil</title>  
+ </head> 
+
+<body>
+    <ul class="navigation" id="navigation"></ul>
+    <br />
+
+
+<div class="recherche_docteur">
+    <h1 style="color: rgb(20, 125, 200)">Je cherche un docteur</h1>
+    
+    <form action="phpDatabase/search_doctor.php" method="post">
+
+        <div>
+            <input type="text" id="nom" name="nom" placeholder="Nom du docteur">
+        </div>
+
+        <div>
+            <input type="text" id="specialite" name="specialite" placeholder="Spécialité">
+        </div>
+        
+        <div>
+            <input type="text" id="lieu" name="lieu" placeholder="Code postal">
+        </div>
+
+        <div>
+            <button type="submit">Rechercher ></button>
+        </div>
+    </form>
+</div>
+
+<script> 
+    $(function(){
+      $("#navigation").load("./html/navigation.html"); 
+    });
+</script>
+
+</body>
+</html>
