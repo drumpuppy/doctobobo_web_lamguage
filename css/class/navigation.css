@@ -28,6 +28,12 @@
     font-size: large;
 }
 
+.logo{
+    height: 25px;
+    width: 25px;
+    float: left;
+    margin-left: 10px;
+}
 .navigation a {
     display:block;                /* Transformation en block */
     min-width: 120px;             /* Largeur minimale des liens */   
