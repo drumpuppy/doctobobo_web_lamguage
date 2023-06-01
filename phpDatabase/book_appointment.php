@@ -2,7 +2,6 @@
 session_start();
 var_dump($_SESSION);
 
-
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'], $_SESSION['user_type'])) {
@@ -60,7 +59,14 @@ if ($result_check->num_rows > 0) {
 
 $stmt_check->close();
 
-$sql = "INSERT INTO Consultation (DateHeure, Patient_idPatient, Medecin_idMedecin, motif, description) VALUES (?, ?, ?, ?, ?)";
+$sql_insert_prescription = "INSERT INTO Prescription (Medicaments, NbrJours) VALUES ('', 0)";
+if (!$conn->query($sql_insert_prescription)) {
+    echo json_encode(['success' => false, 'message' => 'Failed to insert new prescription: ' . $conn->error]);
+    exit();
+}
+$prescription_id = $conn->insert_id;
+
+$sql = "INSERT INTO Consultation (DateHeure, Patient_idPatient, Medecin_idMedecin, Prescription_idPrescription, motif, description) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 
 if(!$stmt){
@@ -70,7 +76,7 @@ if(!$stmt){
 
 $motif = "";
 $description = "";
-$stmt->bind_param("siiss", $datetime, $user_id, $doctor_id, $motif, $description);
+$stmt->bind_param("siisss", $datetime, $user_id, $doctor_id, $prescription_id, $motif, $description);
 echo $stmt->affected_rows;
 $result = $stmt->execute();
 echo $stmt->affected_rows;
