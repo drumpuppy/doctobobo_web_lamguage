@@ -6,10 +6,26 @@
     padding: 0; /* Supprime les marges internes */
     background-color: #14d3c9;
     justify-content: space-around;
+    position: sticky;
 }
 
 .navigation li {
     list-style-type: none ;       /* Suppression des puces */
+}
+.navigation li >a{
+    color: #efeeee;
+    background-color:rgb(20, 125, 200);
+    width: 200px;
+    font-size: larger;
+    text-decoration: none;
+}
+.navigation li >a> button{
+    max-height:fit-content;
+    max-width:fit-content;
+    color: white;
+    background-color:rgb(20, 125, 200);
+    border: none;
+    font-size: large;
 }
 
 .navigation a {

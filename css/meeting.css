@@ -1,42 +1,13 @@
 body {
     background: #dafcff;
-    font-family: Montserrat, "sans-serif";
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
     align-items: center;
     justify-content: center;
     color: #303030;
-}
-    
-.menu {
-    display: flex;
-    flex-wrap: wrap; /* Pour gérer les retours à la ligne si nécessaire */
-    width: 100%; /* Prend toute la largeur disponible */
-    margin: 0; /* Supprime les marges */
-    padding: 0; /* Supprime les marges internes */
-    background-color: #14d3c9;
-    justify-content: space-around;
-}
-
-.menu li {
-    list-style-type: none ;       /* Suppression des puces */
-      
-}
-
-.menu a {
-    display:block;                /* Transformation en block */
-    min-width: 120px;             /* Largeur minimale des liens */   
-    
-    margin: 0.5rem;               /* Marges externes */
-    padding: 0.4rem 0;            /* Marges internes */
-    text-align: center;           /* Centrage du texte */   
-    border-radius: 4px;          /* Arrondis des bordures */
-}
-    
-.menu a:hover{
-    background-color: #0400f0;
-    color: #ffe843;
-    border-color: #ffe843;
 }
 
 .mes_rdv {
@@ -44,6 +15,9 @@ body {
     border: 1px solid;
     border-radius: 8px;
     padding: 0 50px 0 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     background: white;
 }
 

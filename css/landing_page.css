@@ -1,7 +1,9 @@
 body {
     background: #dafcff;
-    font-family: Montserrat, "sans-serif";
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
+    margin: 0;
+    padding: 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -11,6 +13,10 @@ body {
 .recherche_docteur {
     width: 700px;
     border: 1px solid;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
     border-radius: 8px;
     padding: 0 50px 0 50px;
     background: white;
@@ -20,11 +26,16 @@ body {
     font-weight: 500;
     text-align : center;
     font-weight: bold;
+    
 }
+
 
 form div {                      /*Gère la taille des barres de recherche à remplir*/
     width: 60%;
     display: flex;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: column;
     min-height: 83px;
     margin-top: 2px;
@@ -34,9 +45,9 @@ form div > input {
     background: #efeeee;
     border: none;
     border-radius: 5px;
+    display: flex;
     font-size: 16px;
     font-weight: 500;
-    font-family: Montserrat, "sans-serif";
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -48,4 +59,13 @@ form div > input {              /*Définit la taille des barres de recherche*/
 /*Donne la couleur aux mots exemple*/
 form div > input::placeholder, form div > textarea::placeholder {
     color: rgb(111, 108, 108);
+}
+
+form div > button[type="submit"]{
+    color: #efeeee;
+    background-color:rgb(20, 125, 200);
+    height: 60px;
+    font-size:larger;
+    border-radius:15px;
+
 }
